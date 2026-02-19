@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "CareLINK Healthcare API",
+    "description": "Complete API collection for CareLINK Healthcare Management System",
+    "version": "1.0.0"
+  },
+  "baseUrl": "http://localhost:5000/api",
+  "auth": {
+    "type": "bearer",
+    "bearer": []
+  },
+  "endpoints": {
+    "authentication": [
+      {
+        "name": "Register User",
+        "method": "POST",
+        "url": "/auth/register",
+        "body": {
+          "name": "John Doe",
+          "username": "johndoe",
+          "email": "john@example.com",
+          "password": "password123",
+          "role": "doctor",
+          "phone": "+1-555-0100"
+        },
+        "description": "Create a new user account"
+      },
+      {
+        "name": "Login",
+        "method": "POST",
+        "url": "/auth/login",
+        "body": {
+          "username": "admin",
+          "password": "admin123"
+        },
+        "description": "Login and receive JWT token"
+      },
+      {
+        "name": "Get Current User",
+        "method": "GET",
+        "url": "/auth/me",
+        "auth": true,
+        "description": "Get authenticated user information"
+      }
+    ],
+    "users": [
+      {
+        "name": "Get All Users",
+        "method": "GET",
+        "url": "/users",
+        "auth": true,
+        "description": "Retrieve all users"
+      },
+      {
+        "name": "Get User by ID",
+        "method": "GET",
+        "url": "/users/:id",
+        "auth": true,
+        "description": "Get specific user details"
+      },
+      {
+        "name": "Update User",
+        "method": "PUT",
+        "url": "/users/:id",
+        "auth": true,
+        "requiredRole": ["admin", "manager"],
+        "body": {
+          "name": "Updated Name",
+          "email": "updated@example.com",
+          "phone": "+1-555-0101",
+          "status": "Active"
+        },
+        "description": "Update user information"
+      },
+      {
+        "name": "Delete User",
+        "method": "DELETE",
+        "url": "/users/:id",
+        "auth": true,
+        "requiredRole": ["admin"],
+        "description": "Remove a user (Admin only)"
+      }
+    ],
+    "patients": [
+      {
+        "name": "Get All Patients",
+        "method": "GET",
+        "url": "/patients",
+        "auth": true,
+        "description": "Retrieve all patients"
+      },
+      {
+        "name": "Get Patient by ID",
+        "method": "GET",
+        "url": "/patients/:id",
+        "auth": true,
+        "description": "Get specific patient details"
+      },
+      {
+        "name": "Create Patient",
+        "method": "POST",
+        "url": "/patients",
+        "auth": true,
+        "requiredRole": ["admin", "doctor", "nurse", "reception"],
+        "body": {
+          "name": "Alice Johnson",
+          "age": 34,
+          "gender": "Female",
+          "email": "alice@example.com",
+          "phone": "555-0101",
+          "address": "123 Maple St",
+          "medicalHistory": "Asthma",
+          "allergies": "Penicillin",
+          "notes": "Additional patient notes"
+        },
+        "description": "Register a new patient"
+      },
+      {
+        "name": "Update Patient",
+        "method": "PUT",
+        "url": "/patients/:id",
+        "auth": true,
+        "requiredRole": ["admin", "doctor", "nurse", "reception"],
+        "body": {
+          "name": "Alice Johnson",
+          "age": 35,
+          "gender": "Female",
+          "email": "alice@example.com",
+          "phone": "555-0102",
+          "address": "456 Oak Ave",
+          "medicalHistory": "Asthma, Hypertension",
+          "allergies": "Penicillin, Sulfa",
+          "notes": "Updated notes"
+        },
+        "description": "Update patient information"
+      },
+      {
+        "name": "Delete Patient",
+        "method": "DELETE",
+        "url": "/patients/:id",
+        "auth": true,
+        "requiredRole": ["admin", "manager"],
+        "description": "Remove a patient record"
+      }
+    ],
+    "appointments": [
+      {
+        "name": "Get All Appointments",
+        "method": "GET",
+        "url": "/appointments?status=Scheduled&patientId=&doctorId=&date=2026-02-18",
+        "auth": true,
+        "description": "Retrieve appointments with optional filters"
+      },
+      {
+        "name": "Get Appointment by ID",
+        "method": "GET",
+        "url": "/appointments/:id",
+        "auth": true,
+        "description": "Get specific appointment details"
+      },
+      {
+        "name": "Create Appointment",
+        "method": "POST",
+        "url": "/appointments",
+        "auth": true,
+        "requiredRole": ["admin", "doctor", "reception", "manager"],
+        "body": {
+          "patientId": "patient_id_here",
+          "doctorId": "doctor_id_here",
+          "date": "2026-02-20",
+          "time": "14:00",
+          "reason": "Regular checkup",
+          "notes": "Patient requested morning appointment",
+          "duration": 30
+        },
+        "description": "Schedule a new appointment"
+      },
+      {
+        "name": "Update Appointment",
+        "method": "PUT",
+        "url": "/appointments/:id",
+        "auth": true,
+        "requiredRole": ["admin", "doctor", "reception", "manager"],
+        "body": {
+          "date": "2026-02-21",
+          "time": "15:00",
+          "reason": "Follow-up checkup",
+          "notes": "Rescheduled per patient request",
+          "status": "Scheduled",
+          "duration": 30
+        },
+        "description": "Update appointment details"
+      },
+      {
+        "name": "Delete Appointment",
+        "method": "DELETE",
+        "url": "/appointments/:id",
+        "auth": true,
+        "requiredRole": ["admin", "manager"],
+        "description": "Cancel an appointment"
+      },
+      {
+        "name": "Get Patient Appointments",
+        "method": "GET",
+        "url": "/appointments/patient/:patientId",
+        "auth": true,
+        "description": "Get all appointments for a specific patient"
+      },
+      {
+        "name": "Get Doctor Schedule",
+        "method": "GET",
+        "url": "/appointments/doctor/:doctorId/schedule?date=2026-02-18",
+        "auth": true,
+        "description": "Get doctor's appointments for a specific date"
+      }
+    ],
+    "billing": [
+      {
+        "name": "Get All Billing Records",
+        "method": "GET",
+        "url": "/billing?status=Pending&patientId=",
+        "auth": true,
+        "description": "Retrieve all billing records with optional filters"
+      },
+      {
+        "name": "Get Billing Record by ID",
+        "method": "GET",
+        "url": "/billing/:id",
+        "auth": true,
+        "description": "Get specific billing record details"
+      },
+      {
+        "name": "Create Billing Record",
+        "method": "POST",
+        "url": "/billing",
+        "auth": true,
+        "requiredRole": ["admin", "manager", "reception"],
+        "body": {
+          "patientId": "patient_id_here",
+          "appointmentId": "appointment_id_here",
+          "amount": 150.00,
+          "description": "Consultation Fee",
+          "status": "Pending",
+          "paymentMethod": "Card",
+          "dueDate": "2026-03-18"
+        },
+        "description": "Create a new billing record"
+      },
+      {
+        "name": "Update Billing Record",
+        "method": "PUT",
+        "url": "/billing/:id",
+        "auth": true,
+        "requiredRole": ["admin", "manager", "reception"],
+        "body": {
+          "amount": 175.00,
+          "description": "Consultation and Lab Work",
+          "status": "Paid",
+          "paymentMethod": "Cash",
+          "paymentDate": "2026-02-18",
+          "dueDate": "2026-03-18",
+          "notes": "Payment received in cash"
+        },
+        "description": "Update billing record (payments, status, etc.)"
+      },
+      {
+        "name": "Delete Billing Record",
+        "method": "DELETE",
+        "url": "/billing/:id",
+        "auth": true,
+        "requiredRole": ["admin", "manager"],
+        "description": "Remove a billing record"
+      },
+      {
+        "name": "Get Patient Billing",
+        "method": "GET",
+        "url": "/billing/patient/:patientId",
+        "auth": true,
+        "description": "Get all billing records for a specific patient"
+      },
+      {
+        "name": "Mark Billing as Paid",
+        "method": "PUT",
+        "url": "/billing/:id/mark-paid",
+        "auth": true,
+        "requiredRole": ["admin", "manager", "reception"],
+        "body": {
+          "paymentMethod": "Cash"
+        },
+        "description": "Mark a billing record as paid"
+      }
+    ]
+  },
+  "testCredentials": {
+    "description": "Use these credentials to test the API (after running seed.js)",
+    "users": [
+      {
+        "username": "admin",
+        "password": "admin123",
+        "role": "admin",
+        "email": "admin@carelink.com"
+      },
+      {
+        "username": "doctor",
+        "password": "doctor123",
+        "role": "doctor",
+        "email": "john@carelink.com"
+      },
+      {
+        "username": "reception",
+        "password": "recep123",
+        "role": "reception",
+        "email": "reception@carelink.com"
+      },
+      {
+        "username": "nurse",
+        "password": "nurse123",
+        "role": "nurse",
+        "email": "joy@carelink.com"
+      },
+      {
+        "username": "manager",
+        "password": "manager123",
+        "role": "manager",
+        "email": "mike@carelink.com"
+      }
+    ]
+  },
+  "statusCodes": {
+    "200": "Success",
+    "201": "Created",
+    "400": "Bad Request",
+    "401": "Unauthorized (no token)",
+    "403": "Forbidden (insufficient permissions)",
+    "404": "Not Found",
+    "500": "Server Error"
+  }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareLink - Hospital Management System</title>
+    <meta name="description" content="Web-Based Hospital Management System Frontend">
+    <meta name="keywords" content="hospital, management, react, dashboard, medical">
+
+    <!-- React Dependencies -->
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react@18/umd/react.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://resource.trickle.so/vendor_lib/unpkg/@babel/standalone/babel.min.js"></script>
+    
+    <!-- React Router DOM v5 -->
+    <script src="https://unpkg.com/react-router-dom@5.3.4/umd/react-router-dom.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <link href="https://resource.trickle.so/vendor_lib/unpkg/lucide-static@0.516.0/font/lucide.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+
+    <style type="text/tailwindcss">
+    @layer theme {
+        :root {
+            --primary-color: #2563eb; /* blue-600 */
+            --primary-hover: #1d4ed8; /* blue-700 */
+            --secondary-color: #64748b; /* slate-500 */
+            --bg-light: #f1f5f9; /* slate-100 */
+            --sidebar-width: 260px;
+        }
+    }
+
+    @layer base {
+        body {
+            @apply bg-[var(--bg-light)] text-slate-800 font-sans antialiased;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            @apply font-semibold text-slate-900;
+        }
+    }
+
+    @layer components {
+        .btn {
+            @apply px-4 py-2 rounded-md font-medium transition-colors duration-200 flex items-center justify-center gap-2;
+        }
+        .btn-primary {
+            @apply bg-[var(--primary-color)] text-white hover:bg-[var(--primary-hover)];
+        }
+        .btn-secondary {
+            @apply bg-white text-slate-700 border border-slate-300 hover:bg-slate-50;
+        }
+        .btn-danger {
+            @apply bg-red-600 text-white hover:bg-red-700;
+        }
+        .input-field {
+            @apply w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent bg-white;
+        }
+        .card {
+            @apply bg-white rounded-lg shadow-sm border border-slate-200 p-6;
+        }
+        .table-header {
+            @apply px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50 border-b border-slate-200;
+        }
+        .table-cell {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-slate-700 border-b border-slate-100;
+        }
+    }
+    </style>
+    
+    <script>
+        // Pre-register Chart.js
+        window.ChartJS = window.Chart;
+        if (window.ChartJS) {
+             window.ChartJS.register(...window.ChartJS.registerables);
+             // Set default font family
+             window.ChartJS.defaults.font.family = "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+             window.ChartJS.defaults.color = '#64748b';
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- Main Application Scripts -->
+    <script type="text/babel" src="data/mockData.js"></script>
+    <script type="text/babel" src="context/AuthContext.js"></script>
+    <script type="text/babel" src="components/UI.js"></script>
+    <script type="text/babel" src="components/Layout.js"></script>
+    
+    <!-- Pages -->
+    <script type="text/babel" src="pages/Login.js"></script>
+    <script type="text/babel" src="pages/Dashboard.js"></script>
+    <script type="text/babel" src="pages/Patients.js"></script>
+    <script type="text/babel" src="pages/Appointments.js"></script>
+    <script type="text/babel" src="pages/Billing.js"></script>
+    <script type="text/babel" src="pages/Reports.js"></script>
+    <script type="text/babel" src="pages/Users.js"></script>
+    <script type="text/babel" src="pages/Profile.js"></script>
+    
+    <!-- Entry Point -->
+    <script type="text/babel" src="app.js"></script>
+</body>
+</html>
